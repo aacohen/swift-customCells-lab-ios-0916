@@ -33,7 +33,7 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mathCell", for: indexPath) as! MathTableViewCell
         
-        let numbersRow = numbers[indexPath.row]
+        let numbersRow = numbers[indexPath.row] //selected array
         
         cell.firstNumberLabel.text = String("\(numbersRow[0])")
         cell.secondNumberLabel.text = String("\(numbersRow[1])")
@@ -44,14 +44,17 @@ class TableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //check segue identifier. that you're in the right place
         if segue.identifier == "mathCell" {
             
-            let destinationDisplayMathVC = segue.destination as! DisplayMathViewController
+            //setting var destination to the segue destination but have to cast it
+            var destinationDisplayMathVC = segue.destination as! DisplayMathViewController
             
+            //selected number
             let numberIndexPath = tableView.indexPathForSelectedRow?.row
             
             //            destinationDisplayMathVC.numbers = self.numbers[numberIndexPath!]
-            
+            //it's an optional so we have to unwrap it
             if let numberIndex = numberIndexPath {
                 destinationDisplayMathVC.numbers = numbers[numberIndex]
             }
